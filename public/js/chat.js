@@ -1,28 +1,21 @@
 const socket = io();
 
-// socket.on("countUpdated", count => {
-//   console.log("The count has been updated", count);
-// });
-
-// document.querySelector("#increment").addEventListener("click", () => {
-//   console.log("clicked");
-//   socket.emit("increment");
-// });
-
 socket.on("message", message => {
   console.log(message);
 });
 
-const chatForm = document.querySelector("form");
-const text = document.querySelector("input");
+const chatForm = document.querySelector("#message-form");
+// if there is another input in the page it's not good. We need to use e.target
+// const text = document.querySelector("input");
 
 chatForm.addEventListener("submit", e => {
   e.preventDefault();
 
-  let message = text.value;
+  //   let message = text.value;
+  let message = e.target.elements.message.value;
 
   socket.emit("sendMessage", message);
-  if (message == text.value) {
-    text.value = "";
+  if (message == e.target.elements.message.value) {
+    e.target.elements.message.value = "";
   }
 });
