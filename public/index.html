@@ -7,7 +7,19 @@
   </head>
   <body>
     <h1>Chat app</h1>
-    <button id="increment">+1</button>
+    <!-- <button id="increment">+1</button> -->
+
+    <div class="main-content">
+      <p>Use this site to get your weather</p>
+
+      <form action="message">
+        <input type="text" placeholder="Message" />
+        <button>Submit</button>
+      </form>
+
+      <p id="message-1"></p>
+      <p id="message-2"></p>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/chat.js"></script>
