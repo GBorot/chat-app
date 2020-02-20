@@ -27,6 +27,13 @@ io.on("connection", socket => {
     io.emit("message", message);
   });
 
+  socket.on("sendLocation", coordinates => {
+    io.emit(
+      "message",
+      `Location: ${coordinates.latitude}, ${coordinates.longitude}`
+    );
+  });
+
   socket.on("disconnect", () => {
     io.emit("message", "A user has left!");
   });

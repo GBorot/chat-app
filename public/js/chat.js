@@ -19,3 +19,18 @@ chatForm.addEventListener("submit", e => {
     e.target.elements.message.value = "";
   }
 });
+
+document.querySelector("#send-location").addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    return alert("Geolocation is not supported by your browser...");
+  }
+
+  navigator.geolocation.getCurrentPosition(position => {
+    const coordinates = {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    };
+
+    socket.emit("sendLocation", coordinates);
+  });
+});
