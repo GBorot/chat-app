@@ -19,9 +19,16 @@ io.on("connection", socket => {
   console.log("New WebSocket connection");
 
   socket.emit("message", "Welcome!");
+  // send message to everybody except the current user
+  socket.broadcast.emit("message", "A new user has joined!");
 
   socket.on("sendMessage", message => {
+    // emit message to everyone
     io.emit("message", message);
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("message", "A user has left!");
   });
 });
 
