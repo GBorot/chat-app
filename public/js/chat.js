@@ -19,7 +19,10 @@ const text = document.querySelector("input");
 chatForm.addEventListener("submit", e => {
   e.preventDefault();
 
-  const message = text.value;
+  let message = text.value;
 
   socket.emit("sendMessage", message);
+  if (message == text.value) {
+    text.value = "";
+  }
 });
