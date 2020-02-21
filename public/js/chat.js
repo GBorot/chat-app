@@ -1,5 +1,9 @@
 const socket = io();
 
+// server (emiit) -> client (receive) --acknowledgement--> server
+
+// client (emiit) -> server (receive) --acknowledgement--> client
+
 socket.on("message", message => {
   console.log(message);
 });
@@ -14,7 +18,13 @@ chatForm.addEventListener("submit", e => {
   //   let message = text.value;
   let message = e.target.elements.message.value;
 
-  socket.emit("sendMessage", message);
+  socket.emit("sendMessage", message, error => {
+    if (error) {
+      return console.log(error);
+    }
+
+    console.log("Message delivered!");
+  });
   if (message == e.target.elements.message.value) {
     e.target.elements.message.value = "";
   }
@@ -31,6 +41,8 @@ document.querySelector("#send-location").addEventListener("click", () => {
       longitude: position.coords.longitude
     };
 
-    socket.emit("sendLocation", coordinates);
+    socket.emit("sendLocation", coordinates, () => {
+      console.log("Location shared!");
+    });
   });
 });
