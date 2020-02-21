@@ -4,36 +4,50 @@ const socket = io();
 
 // client (emiit) -> server (receive) --acknowledgement--> client
 
+// Elements :
+const $messageForm = document.querySelector("#message-form");
+const $messageFormInput = document.querySelector("input");
+const $messageFormButton = document.querySelector("button");
+const $geolocationButton = document.querySelector("#send-location");
+
 socket.on("message", message => {
   console.log(message);
 });
 
-const chatForm = document.querySelector("#message-form");
 // if there is another input in the page it's not good. We need to use e.target
 // const text = document.querySelector("input");
 
-chatForm.addEventListener("submit", e => {
+$messageForm.addEventListener("submit", e => {
   e.preventDefault();
+  // disable the form
+  $messageFormButton.setAttribute("disabled", "disabled");
 
   //   let message = text.value;
   let message = e.target.elements.message.value;
 
   socket.emit("sendMessage", message, error => {
+    // enable form
+    $messageFormButton.removeAttribute("disabled");
+    $messageFormInput.value = "";
+    $messageFormInput.focus();
+
     if (error) {
       return console.log(error);
     }
 
     console.log("Message delivered!");
   });
-  if (message == e.target.elements.message.value) {
-    e.target.elements.message.value = "";
-  }
+  // if (message == e.target.elements.message.value) {
+  //   e.target.elements.message.value = "";
+  // }
 });
 
-document.querySelector("#send-location").addEventListener("click", () => {
+$geolocationButton.addEventListener("click", () => {
   if (!navigator.geolocation) {
     return alert("Geolocation is not supported by your browser...");
   }
+  // Disable
+  $geolocationButton.setAttribute("disabled", "disabled");
 
   navigator.geolocation.getCurrentPosition(position => {
     const coordinates = {
@@ -42,6 +56,8 @@ document.querySelector("#send-location").addEventListener("click", () => {
     };
 
     socket.emit("sendLocation", coordinates, () => {
+      // Enable
+      $geolocationButton.removeAttribute("disabled");
       console.log("Location shared!");
     });
   });
