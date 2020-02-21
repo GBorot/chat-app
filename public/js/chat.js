@@ -23,6 +23,10 @@ socket.on("message", message => {
   $messages.insertAdjacentHTML("beforeend", html);
 });
 
+socket.on("locationMessage", url => {
+  console.log(url);
+});
+
 // if there is another input in the page it's not good. We need to use e.target
 // const text = document.querySelector("input");
 
