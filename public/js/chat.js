@@ -9,9 +9,18 @@ const $messageForm = document.querySelector("#message-form");
 const $messageFormInput = document.querySelector("input");
 const $messageFormButton = document.querySelector("button");
 const $geolocationButton = document.querySelector("#send-location");
+const $messages = document.querySelector("#messages");
+
+// Templates
+const $messageTemplate = document.querySelector("#message-template").innerHTML;
 
 socket.on("message", message => {
   console.log(message);
+
+  const html = Mustache.render($messageTemplate, {
+    message
+  });
+  $messages.insertAdjacentHTML("beforeend", html);
 });
 
 // if there is another input in the page it's not good. We need to use e.target
