@@ -37,9 +37,6 @@ $messageForm.addEventListener("submit", e => {
 
     console.log("Message delivered!");
   });
-  // if (message == e.target.elements.message.value) {
-  //   e.target.elements.message.value = "";
-  // }
 });
 
 $geolocationButton.addEventListener("click", () => {
