@@ -40,6 +40,16 @@ const removeUser = id => {
   }
 };
 
+const getUser = id => {
+  const searchUser = users.find(user => user.id === id);
+
+  if (!searchUser) {
+    return undefined;
+  }
+
+  return searchUser;
+};
+
 addUser({
   id: 22,
   username: "Gautier",
@@ -48,7 +58,11 @@ addUser({
 
 console.log(users);
 
-const removedUser = removeUser(22);
+// const removedUser = removeUser(22);
 
-console.log(removedUser);
-console.log(users);
+// console.log(removedUser);
+// console.log(users);
+
+const user = getUser(22);
+
+console.log(user);
