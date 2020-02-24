@@ -50,6 +50,12 @@ const getUser = id => {
   return searchUser;
 };
 
+const getUsersInRomm = room => {
+  const roomUsers = users.filter(user => user.room === room);
+
+  return roomUsers;
+};
+
 addUser({
   id: 22,
   username: "Gautier",
@@ -66,3 +72,9 @@ console.log(users);
 const user = getUser(22);
 
 console.log(user);
+
+const paris = getUsersInRomm("paris");
+const melun = getUsersInRomm("melun");
+
+console.log(paris);
+console.log(melun);
