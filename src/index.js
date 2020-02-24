@@ -60,7 +60,7 @@ io.on("connection", socket => {
     }
 
     // emit message to everyone
-    io.to(user.room).emit("message", generateMessage(message));
+    io.to(user.room).emit("message", generateMessage(user.username, message));
     cb();
   });
 
@@ -70,6 +70,7 @@ io.on("connection", socket => {
     io.to(user.room).emit(
       "locationMessage",
       generateLocationMessage(
+        user.username,
         `https://google.com/maps?q=${coordinates.latitude},${coordinates.longitude}`
       )
     );
