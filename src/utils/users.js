@@ -41,40 +41,9 @@ const removeUser = id => {
 };
 
 const getUser = id => {
-  const searchUser = users.find(user => user.id === id);
-
-  if (!searchUser) {
-    return undefined;
-  }
-
-  return searchUser;
+  return users.find(user => user.id === id);
 };
 
 const getUsersInRomm = room => {
-  const roomUsers = users.filter(user => user.room === room);
-
-  return roomUsers;
+  return users.filter(user => user.room === room);
 };
-
-addUser({
-  id: 22,
-  username: "Gautier",
-  room: "Paris"
-});
-
-console.log(users);
-
-// const removedUser = removeUser(22);
-
-// console.log(removedUser);
-// console.log(users);
-
-const user = getUser(22);
-
-console.log(user);
-
-const paris = getUsersInRomm("paris");
-const melun = getUsersInRomm("melun");
-
-console.log(paris);
-console.log(melun);
