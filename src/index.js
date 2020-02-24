@@ -51,6 +51,8 @@ io.on("connection", socket => {
   });
 
   socket.on("sendMessage", (message, cb) => {
+    const user = getUser(socket.id);
+
     const filter = new Filter();
 
     if (filter.isProfane(message)) {
@@ -58,12 +60,14 @@ io.on("connection", socket => {
     }
 
     // emit message to everyone
-    io.to("Paris").emit("message", generateMessage(message));
+    io.to(user.room).emit("message", generateMessage(message));
     cb();
   });
 
   socket.on("sendLocation", (coordinates, cb) => {
-    io.emit(
+    const user = getUser(socket.id);
+
+    io.to(user.room).emit(
       "locationMessage",
       generateLocationMessage(
         `https://google.com/maps?q=${coordinates.latitude},${coordinates.longitude}`
