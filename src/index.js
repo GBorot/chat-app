@@ -41,7 +41,7 @@ io.on("connection", socket => {
     // socket.emit, io.emit, socket.broadcast.emit
     // io.to.emit, socket.broadcast.to.emit
 
-    socket.emit("message", generateMessage("Welcome!"));
+    socket.emit("message", generateMessage("Admin", "Welcome!"));
     // send message to everybody except the current user
     socket.broadcast
       .to(user.room)
@@ -83,7 +83,7 @@ io.on("connection", socket => {
     if (user) {
       io.to(user.room).emit(
         "message",
-        generateMessage(`${user.username} has left!`)
+        generateMessage("Admin", `${user.username} has left!`)
       );
     }
   });
