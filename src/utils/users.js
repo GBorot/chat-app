@@ -47,3 +47,10 @@ const getUser = id => {
 const getUsersInRomm = room => {
   return users.filter(user => user.room === room);
 };
+
+module.exports = {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRomm
+};
